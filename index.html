@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MechMind - A primeira IA que transforma manutenção em vantagem competitiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #4A5568;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #1B365D;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #4A5568;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #1B365D;
+        }
+        
+        .cta-button {
+            background: #1B365D;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: #2C5282;
+            transform: translateY(-1px);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: #1B365D;
+            border: 2px solid #1B365D;
+        }
+        
+        .cta-secondary:hover {
+            background: #1B365D;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #F7FAFC 0%, #E2E8F0 100%);
+            padding: 8rem 0 6rem;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(27, 54, 93, 0.03));
+            transform: skewX(-15deg);
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            font-size: 3rem;
+            color: #1B365D;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            flex: 1;
+        }
+        
+        .hero-text p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: #4A5568;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .hero-visual {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(27, 54, 93, 0.15);
+            border: 1px solid #E2E8F0;
+        }
+        
+        .dashboard-preview {
+            background: #1B365D;
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .dashboard-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #48BB78;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .priority-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .priority-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid;
+        }
+        
+        .priority-high { border-left-color: #F56565; }
+        .priority-medium { border-left-color: #ED8936; }
+        .priority-low { border-left-color: #48BB78; }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .priority-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .badge-high { background: rgba(245, 101, 101, 0.2); color: #F56565; }
+        .badge-medium { background: rgba(237, 137, 54, 0.2); color: #ED8936; }
+        .badge-low { background: rgba(72, 187, 120, 0.2); color: #48BB78; }
+        
+        /* Problem Section */
+        .problem {
+            padding: 6rem 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: #1B365D;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #4A5568;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .problem-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            border-color: #1B365D;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(27, 54, 93, 0.15);
+        }
+        
+        .stat-number {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            font-size: 3rem;
+            color: #F56565;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-weight: 600;
+            color: #1B365D;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-description {
+            font-size: 0.9rem;
+            color: #4A5568;
+        }
+        
+        /* Solution Section */
+        .solution {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #1B365D 0%, #2C5282 100%);
+            color: white;
+        }
+        
+        .solution .section-title {
+            color: white;
+        }
+        
+        .solution .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #48BB78, #ED8936);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* How it Works */
+        .how-it-works {
+            padding: 6rem 0;
+            background: #F7FAFC;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #1B365D;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: #1B365D;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .step-description {
+            color: #4A5568;
+            line-height: 1.6;
+        }
+        
+        /* Benefits */
+        .benefits {
+            padding: 6rem 0;
+            background: white;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #48BB78, #ED8936, #F56565);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(27, 54, 93, 0.15);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-title {
+            font-weight: 600;
+            color: #1B365D;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+        
+        .benefit-description {
+            color: #4A5568;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-highlight {
+            font-weight: 600;
+            color: #1B365D;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #2C5282 0%, #1B365D 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .cta-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-group select {
+            color: white;
+        }
+        
+        .form-group option {
+            background: #1B365D;
+            color: white;
+        }
+        
+        .form-submit {
+            background: #48BB78;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .form-submit:hover {
+            background: #38A169;
+            transform: translateY(-1px);
+        }
+        
+        .form-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1B365D;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text > div {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 1rem !important;
+            }
+            
+            .cta-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Engrenagem (lado esquerdo) -->
+                        <path d="M8 16C8 14.5 9 13.2 10.5 12.8L11 10L13 10.5C14.2 9.8 15.8 9.8 17 10.5L19 10L19.5 12.8C21 13.2 22 14.5 22 16C22 17.5 21 18.8 19.5 19.2L19 22L17 21.5C15.8 22.2 14.2 22.2 13 21.5L11 22L10.5 19.2C9 18.8 8 17.5 8 16Z" stroke="#1B365D" stroke-width="1.5" fill="white"/>
+                        <circle cx="15" cy="16" r="3" fill="#1B365D"/>
+                        
+                        <!-- Circuitos/Cérebro (lado direito) -->
+                        <circle cx="24" cy="10" r="1.5" fill="#1B365D"/>
+                        <circle cx="28" cy="12" r="1.5" fill="#1B365D"/>
+                        <circle cx="26" cy="16" r="1.5" fill="#1B365D"/>
+                        <circle cx="24" cy="20" r="1.5" fill="#1B365D"/>
+                        <circle cx="28" cy="22" r="1.5" fill="#1B365D"/>
+                        
+                        <!-- Conexões -->
+                        <path d="M24 10L26 12L28 12M26 16L24 16M24 20L26 18L28 22" stroke="#1B365D" stroke-width="1" fill="none"/>
+                        <path d="M22 16L24 16" stroke="#1B365D" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                MechMind
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#problema">Problema</a></li>
+                <li><a href="#solucao">Solução</a></li>
+                <li><a href="#como-funciona">Como Funciona</a></li>
+                <li><a href="#beneficios">Benefícios</a></li>
+                <li><a href="#piloto" class="cta-button">Ser Piloto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Engrenagem (lado esquerdo) -->
+                            <path d="M12 24C12 21.8 13.5 19.8 15.75 19.2L16.5 15L19.5 15.75C21.3 14.7 23.7 14.7 25.5 15.75L28.5 15L29.25 19.2C31.5 19.8 33 21.8 33 24C33 26.2 31.5 28.2 29.25 28.8L28.5 33L25.5 32.25C23.7 33.3 21.3 33.3 19.5 32.25L16.5 33L15.75 28.8C13.5 28.2 12 26.2 12 24Z" stroke="#1B365D" stroke-width="2" fill="#F7FAFC"/>
+                            <circle cx="22.5" cy="24" r="4" fill="#1B365D"/>
+                            
+                            <!-- Circuitos/Cérebro (lado direito) -->
+                            <circle cx="36" cy="15" r="2" fill="#1B365D"/>
+                            <circle cx="42" cy="18" r="2" fill="#1B365D"/>
+                            <circle cx="39" cy="24" r="2" fill="#1B365D"/>
+                            <circle cx="36" cy="30" r="2" fill="#1B365D"/>
+                            <circle cx="42" cy="33" r="2" fill="#1B365D"/>
+                            
+                            <!-- Conexões -->
+                            <path d="M36 15L39 18L42 18M39 24L36 24M36 30L39 27L42 33" stroke="#1B365D" stroke-width="1.5" fill="none"/>
+                            <path d="M33 24L36 24" stroke="#1B365D" stroke-width="2"/>
+                        </svg>
+                        <h1>A primeira IA que transforma decisões de manutenção em vantagem competitiva</h1>
+                    </div>
+                    <p>Seja pioneiro: teste gratuitamente o sistema que promete revolucionar a gestão de frotas no Brasil</p>
+                    <div class="cta-group">
+                        <a href="#piloto" class="cta-button">Ser Cliente Piloto</a>
+                        <a href="#como-funciona" class="cta-button cta-secondary">Ver Como Funciona</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-header">
+                            <div class="dashboard-title">Dashboard Operacional</div>
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                Sistema Ativo
+                            </div>
+                        </div>
+                        <div class="priority-cards">
+                            <div class="priority-card priority-high">
+                                <div class="card-header">
+                                    <span>🚗 Civic - ABC1234</span>
+                                    <span class="priority-badge badge-high">ALTA</span>
+                                </div>
+                                <div>Motor não liga - Urgente</div>
+                            </div>
+                            <div class="priority-card priority-medium">
+                                <div class="card-header">
+                                    <span>🚙 Corolla - XYZ5678</span>
+                                    <span class="priority-badge badge-medium">MÉDIA</span>
+                                </div>
+                                <div>Freio fazendo ruído</div>
+                            </div>
+                            <div class="priority-card priority-low">
+                                <div class="card-header">
+                                    <span>🚗 Gol - DEF9012</span>
+                                    <span class="priority-badge badge-low">BAIXA</span>
+                                </div>
+                                <div>Revisão preventiva</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problema">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">O Problema que Custa Milhões</h2>
+                <p class="section-subtitle">Frotas brasileiras desperdiçam recursos com decisões subjetivas e gargalos invisíveis na manutenção</p>
+            </div>
+            <div class="problem-stats">
+                <div class="stat-card">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Tempo Perdido</div>
+                    <div class="stat-description">Frota parada mais tempo que necessário</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">R$ 128bi</div>
+                    <div class="stat-label">Mercado Total</div>
+                    <div class="stat-description">Setor de manutenção automotiva</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0%</div>
+                    <div class="stat-label">Uso de IA</div>
+                    <div class="stat-description">Adoção de inteligência artificial</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">121mil</div>
+                    <div class="stat-label">Oficinas</div>
+                    <div class="stat-description">Operando com processos manuais</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solucao">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nossa Solução Inteligente</h2>
+                <p class="section-subtitle">IA que transforma decisões subjetivas em ciência de dados aplicada</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Análise por IA</h3>
+                    <p class="feature-description">Processamento de linguagem natural que interpreta "motor barulhento" e classifica automaticamente a gravidade</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Priorização Automática</h3>
+                    <p class="feature-description">Combina gravidade do problema + tempo de espera = pontuação objetiva de prioridade</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Aprendizado Contínuo</h3>
+                    <p class="feature-description">Sistema que aprende com cada atendimento e otimiza continuamente as decisões</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Dashboard Executivo</h3>
+                    <p class="feature-description">Interface intuitiva com KPIs em tempo real para gestores, mecânicos e diretores</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Como Funciona</h2>
+                <p class="section-subtitle">Processo simples em 4 passos que transforma sua operação</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Cadastro do Problema</h3>
+                    <p class="step-description">Recepcionista ou mecânico descreve: "Motor fazendo barulho estranho"</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Análise por IA</h3>
+                    <p class="step-description">Sistema processa e classifica: "Motor + barulho = ALTA gravidade"</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Priorização Inteligente</h3>
+                    <p class="step-description">Algoritmo combina: Gravidade + Tempo de espera = Score final</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Fila Otimizada</h3>
+                    <p class="step-description">Dashboard mostra ordem ideal de atendimento em tempo real</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits" id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Vantagens de Ser Pioneiro</h2>
+                <p class="section-subtitle">Benefícios exclusivos para os primeiros a adotar a tecnologia</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3 class="benefit-title">First-Mover Advantage</h3>
+                    <p class="benefit-description">Seja a primeira empresa do Brasil com IA na gestão de manutenção</p>
+                    <div class="benefit-highlight">Vantagem competitiva antes dos concorrentes</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔬</div>
+                    <h3 class="benefit-title">Influencie o Produto</h3>
+                    <p class="benefit-description">Participe do desenvolvimento e molde a ferramenta ideal para sua operação</p>
+                    <div class="benefit-highlight">Suas necessidades viram funcionalidades</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🆓</div>
+                    <h3 class="benefit-title">Teste Completo Gratuito</h3>
+                    <p class="benefit-description">90 dias de uso gratuito com suporte dedicado da nossa equipe</p>
+                    <div class="benefit-highlight">Zero risco, máximo aprendizado</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3 class="benefit-title">Case Study Exclusivo</h3>
+                    <p class="benefit-description">Sua empresa vira referência no setor com case documentado</p>
+                    <div class="benefit-highlight">Marketing poderoso: "Pioneiro em IA"</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">Suporte VIP</h3>
+                    <p class="benefit-description">Acesso direto aos desenvolvedores e implementação personalizada</p>
+                    <div class="benefit-highlight">Seu sucesso é nossa prioridade</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3 class="benefit-title">Desconto Vitalício</h3>
+                    <p class="benefit-description">Preço especial de pioneiro válido para sempre após o período piloto</p>
+                    <div class="benefit-highlight">Investimento que se paga sozinho</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="piloto">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Seja Pioneiro na Revolução da IA</h2>
+                <p class="cta-subtitle">Vagas limitadas para clientes piloto. Cadastre-se agora e garanta sua vaga no futuro da manutenção automotiva.</p>
+                
+                <div class="cta-form">
+                    <form id="pilot-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cargo">Cargo</label>
+                                <select id="cargo" name="cargo" required>
+                                    <option value="">Selecione seu cargo</option>
+                                    <option value="gerente-frota">Gerente de Frota</option>
+                                    <option value="diretor-operacoes">Diretor de Operações</option>
+                                    <option value="gestor-oficina">Gestor de Oficina</option>
+                                    <option value="proprietario">Proprietário</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa">Empresa</label>
+                                <input type="text" id="empresa" name="empresa" placeholder="Nome da empresa" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="frota">Tamanho da Frota</label>
+                                <select id="frota" name="frota" required>
+                                    <option value="">Número de veículos</option>
+                                    <option value="20-50">20 a 50 veículos</option>
+                                    <option value="51-100">51 a 100 veículos</option>
+                                    <option value="101-500">101 a 500 veículos</option>
+                                    <option value="500+">Mais de 500 veículos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Profissional</label>
+                                <input type="email" id="email" name="email" placeholder="seu.email@empresa.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            🚀 Quero Ser Cliente Piloto
+                        </button>
+                    </form>
+                </div>
+
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        ✅ Teste gratuito por 90 dias
+                    </div>
+                    <div class="trust-item">
+                        🔒 Dados 100% seguros
+                    </div>
+                    <div class="trust-item">
+                        ⚡ Implementação em 1 semana
+                    </div>
+                    <div class="trust-item">
+                        📞 Suporte dedicado
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MechMind</h3>
+                    <p>A primeira IA que transforma manutenção de centro de custo em vantagem competitiva.</p>
+                    <p>Transformando decisões subjetivas em ciência de dados aplicada.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>Email: contato@mechmind.ai</p>
+                    <p>WhatsApp: (11) 99999-9999</p>
+                    <p>LinkedIn: /company/mechmind-ai</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Para Empresas</h3>
+                    <p><a href="#piloto">Programa Piloto</a></p>
+                    <p><a href="#como-funciona">Demonstração</a></p>
+                    <p><a href="#beneficios">Casos de Uso</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Tecnologia</h3>
+                    <p>94% de precisão comprovada</p>
+                    <p>IA treinada com dados reais</p>
+                    <p>Implementação em 1 semana</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MechMind. Todos os direitos reservados. | Tecnologia brasileira para o futuro da manutenção automotiva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // 🔧 CONFIGURAÇÃO SUPABASE - JÁ CONFIGURADO!
+        // ============================================
+        const SUPABASE_URL = 'https://ggodniafjpohnjmyfagb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2RuaWFmanBvaG5qbXlmYWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NTU1MzgsImV4cCI6MjA3MjIzMTUzOH0.J3me6tmYkWxl3VOS97LGA3CSqjW5OJOM1_BBYurQWhs';
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission com Supabase - FUNCIONANDO!
+        document.getElementById('pilot-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            const submitButton = document.querySelector('.form-submit');
+            const originalText = submitButton.textContent;
+            
+            // Loading state
+            submitButton.textContent = '⏳ Enviando...';
+            submitButton.disabled = true;
+            
+            try {
+                // Enviar para Supabase
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/pilot_leads`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // Sucesso
+                    submitButton.textContent = '✅ Cadastro Enviado!';
+                    submitButton.style.background = '#48BB78';
+                    
+                    // Show success message
+                    alert(`🎉 Obrigado, ${data.nome}! 
+
+Seu cadastro foi recebido com sucesso. Nossa equipe entrará em contato em até 24 horas para:
+
+• Agendar demonstração personalizada
+• Entender suas necessidades específicas  
+• Configurar seu teste gratuito de 90 dias
+
+Fique atento ao seu email e telefone!
+
+Time MechMind`);
+                    
+                    // Reset form após sucesso
+                    setTimeout(() => {
+                        this.reset();
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                        submitButton.style.background = '#48BB78';
+                    }, 3000);
+                    
+                    // Google Analytics tracking (se configurado)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            'event_category': 'lead_generation',
+                            'event_label': 'pilot_program',
+                            'value': 1
+                        });
+                    }
+                    
+                } else {
+                    // Erro da API
+                    const errorData = await response.text();
+                    console.error('Erro Supabase:', errorData);
+                    throw new Error('Erro ao enviar formulário');
+                }
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                
+                // Error state
+                submitButton.textContent = '❌ Erro no envio - Tentar novamente';
+                submitButton.style.background = '#F56565';
+                
+                alert(`Ops! Houve um erro ao enviar seu cadastro. 
+
+Não se preocupe, você pode:
+
+• Tentar enviar novamente em alguns segundos
+• Ou entrar em contato direto:
+  📞 WhatsApp: (11) 99999-9999
+  📧 Email: contato@mechmind.ai
+
+Vamos resolver isso rapidinho!`);
+                
+                // Reset button após erro
+                setTimeout(() => {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    submitButton.style.background = '#48BB78';
+                }, 5000);
+            }
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Hero section should be visible immediately
+        document.querySelector('.hero').style.opacity = '1';
+        document.querySelector('.hero').style.transform = 'translateY(0)';
+
+        // Console log para debug
+        console.log('🚀 MechMind Website carregado!');
+        console.log('📊 Supabase configurado:', SUPABASE_URL);
+        console.log('🔑 API Key presente:', SUPABASE_ANON_KEY ? 'Sim' : 'Não');
+    </script>
+</body>
+</html>
