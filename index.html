@@ -105,6 +105,17 @@
             background: #1B365D;
             color: white;
         }
+
+        /* 🔹 Correção botão navbar "Ser Piloto" */
+        .nav-menu .cta-button {
+            background: #1B365D;
+            color: #fff;
+            border: 2px solid #1B365D;
+        }
+        .nav-menu .cta-button:hover {
+            background: #2C5282;
+            border-color: #2C5282;
+        }
         
         /* Hero Section */
         .hero {
@@ -651,27 +662,11 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav class="container">
             <div class="logo">
                 <div class="logo-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Engrenagem (lado esquerdo) -->
-                        <path d="M8 16C8 14.5 9 13.2 10.5 12.8L11 10L13 10.5C14.2 9.8 15.8 9.8 17 10.5L19 10L19.5 12.8C21 13.2 22 14.5 22 16C22 17.5 21 18.8 19.5 19.2L19 22L17 21.5C15.8 22.2 14.2 22.2 13 21.5L11 22L10.5 19.2C9 18.8 8 17.5 8 16Z" stroke="#1B365D" stroke-width="1.5" fill="white"/>
-                        <circle cx="15" cy="16" r="3" fill="#1B365D"/>
-                        
-                        <!-- Circuitos/Cérebro (lado direito) -->
-                        <circle cx="24" cy="10" r="1.5" fill="#1B365D"/>
-                        <circle cx="28" cy="12" r="1.5" fill="#1B365D"/>
-                        <circle cx="26" cy="16" r="1.5" fill="#1B365D"/>
-                        <circle cx="24" cy="20" r="1.5" fill="#1B365D"/>
-                        <circle cx="28" cy="22" r="1.5" fill="#1B365D"/>
-                        
-                        <!-- Conexões -->
-                        <path d="M24 10L26 12L28 12M26 16L24 16M24 20L26 18L28 22" stroke="#1B365D" stroke-width="1" fill="none"/>
-                        <path d="M22 16L24 16" stroke="#1B365D" stroke-width="1.5"/>
-                    </svg>
+                    <img src="mechmind-logo.svg" alt="MechMind logo" width="32" height="32" />
                 </div>
                 MechMind
             </div>
@@ -691,22 +686,7 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Engrenagem (lado esquerdo) -->
-                            <path d="M12 24C12 21.8 13.5 19.8 15.75 19.2L16.5 15L19.5 15.75C21.3 14.7 23.7 14.7 25.5 15.75L28.5 15L29.25 19.2C31.5 19.8 33 21.8 33 24C33 26.2 31.5 28.2 29.25 28.8L28.5 33L25.5 32.25C23.7 33.3 21.3 33.3 19.5 32.25L16.5 33L15.75 28.8C13.5 28.2 12 26.2 12 24Z" stroke="#1B365D" stroke-width="2" fill="#F7FAFC"/>
-                            <circle cx="22.5" cy="24" r="4" fill="#1B365D"/>
-                            
-                            <!-- Circuitos/Cérebro (lado direito) -->
-                            <circle cx="36" cy="15" r="2" fill="#1B365D"/>
-                            <circle cx="42" cy="18" r="2" fill="#1B365D"/>
-                            <circle cx="39" cy="24" r="2" fill="#1B365D"/>
-                            <circle cx="36" cy="30" r="2" fill="#1B365D"/>
-                            <circle cx="42" cy="33" r="2" fill="#1B365D"/>
-                            
-                            <!-- Conexões -->
-                            <path d="M36 15L39 18L42 18M39 24L36 24M36 30L39 27L42 33" stroke="#1B365D" stroke-width="1.5" fill="none"/>
-                            <path d="M33 24L36 24" stroke="#1B365D" stroke-width="2"/>
-                        </svg>
+                        <img src="mechmind-logo.svg" alt="MechMind logo" width="48" height="48" />
                         <h1>A primeira IA que transforma decisões de manutenção em vantagem competitiva</h1>
                     </div>
                     <p>Seja pioneiro: teste gratuitamente o sistema que promete revolucionar a gestão de frotas no Brasil</p>
@@ -872,7 +852,7 @@
                 <div class="benefit-card">
                     <div class="benefit-icon">🆓</div>
                     <h3 class="benefit-title">Teste Completo Gratuito</h3>
-                    <p class="benefit-description">90 dias de uso gratuito com suporte dedicado da nossa equipe</p>
+                    <p class="benefit-description">30 dias de uso gratuito com suporte dedicado da nossa equipe</p>
                     <div class="benefit-highlight">Zero risco, máximo aprendizado</div>
                 </div>
                 <div class="benefit-card">
@@ -957,7 +937,7 @@
 
                 <div class="trust-indicators">
                     <div class="trust-item">
-                        ✅ Teste gratuito por 90 dias
+                        ✅ Teste gratuito por 30 dias
                     </div>
                     <div class="trust-item">
                         🔒 Dados 100% seguros
@@ -1009,7 +989,7 @@
 
     <script>
         // ============================================
-        // 🔧 CONFIGURAÇÃO SUPABASE - JÁ CONFIGURADO!
+        // 🔧 CONFIGURAÇÃO SUPABASE 
         // ============================================
         const SUPABASE_URL = 'https://ggodniafjpohnjmyfagb.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2RuaWFmanBvaG5qbXlmYWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NTU1MzgsImV4cCI6MjA3MjIzMTUzOH0.J3me6tmYkWxl3VOS97LGA3CSqjW5OJOM1_BBYurQWhs';
@@ -1068,7 +1048,7 @@ Seu cadastro foi recebido com sucesso. Nossa equipe entrará em contato em até 
 
 • Agendar demonstração personalizada
 • Entender suas necessidades específicas  
-• Configurar seu teste gratuito de 90 dias
+• Configurar seu teste gratuito de 30 dias
 
 Fique atento ao seu email e telefone!
 
